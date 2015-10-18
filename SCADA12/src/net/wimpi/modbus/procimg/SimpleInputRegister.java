@@ -54,8 +54,10 @@ public class SimpleInputRegister
    * @param value the value of this <tt>SimpleInputRegister</tt>
    *        as <tt>int</tt>.
    */
-  public SimpleInputRegister(int value) {
+  public SimpleInputRegister(int value) { 
     setValue(value);
+   
   }//constructor(int)
+
 
 }//SimpleInputRegister

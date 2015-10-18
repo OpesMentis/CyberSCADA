@@ -56,7 +56,7 @@ public class ModbusTCPListener
   public ModbusTCPListener(int poolsize) {
     m_ThreadPool = new ThreadPool(poolsize);
     try {
-      m_Address = InetAddress.getLocalHost();
+      m_Address = InetAddress.getByName("192.168.0.25");
       System.out.println("adresse serveur"+ m_Address);
     } catch (UnknownHostException ex) {
 

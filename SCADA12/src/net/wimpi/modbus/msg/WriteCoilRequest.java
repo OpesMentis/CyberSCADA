@@ -25,6 +25,7 @@ import net.wimpi.modbus.ModbusCoupler;
 import net.wimpi.modbus.procimg.DigitalOut;
 import net.wimpi.modbus.procimg.IllegalAddressException;
 import net.wimpi.modbus.procimg.ProcessImage;
+import net.wimpi.modbus.procimg.SimpleProcessImage;
 
 /**
  * Class implementing a <tt>WriteCoilRequest</tt>.
@@ -83,6 +84,7 @@ public final class WriteCoilRequest
       dout = procimg.getDigitalOut(this.getReference());
       //3. set coil
       dout.set(this.getCoil());
+      if(SimpleProcessImage.class.isInstance(procimg)) ((SimpleProcessImage) procimg).update();
       //if(Modbus.debug) System.out.println("set coil ref="+this.getReference()+" state=" + this.getCoil());
     } catch (IllegalAddressException iaex) {
       return createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);

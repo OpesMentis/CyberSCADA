@@ -121,6 +121,7 @@ public class ModbusTCPTransport
         req.readFrom(m_ByteIn);
       }
       return req;
+      
 /*
       int transactionID = m_Input.readUnsignedShort();
       int protocolID = m_Input.readUnsignedShort();
