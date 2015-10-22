@@ -78,7 +78,6 @@ public final class WriteSingleRegisterResponse
    */
   private void setRegisterValue(int value) {
     m_RegisterValue = value;
-    
   }//setRegisterValue
 
   /**

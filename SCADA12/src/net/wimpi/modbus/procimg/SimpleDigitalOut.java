@@ -16,8 +16,6 @@
 
 package net.wimpi.modbus.procimg;
 
-import application.Automate;
-
 /**
  * Class implementing a simple <tt>DigitalOut</tt>.
  * <p>
@@ -29,6 +27,7 @@ import application.Automate;
  */
 public class SimpleDigitalOut 
     implements DigitalOut {
+
   /**
    * Field for the digital out state.
    */
@@ -48,8 +47,7 @@ public class SimpleDigitalOut
    * @param b true if set, false otherwise.
    */
   public SimpleDigitalOut(boolean b) {
-	  m_Set = b;
-
+    set(b);
   }//constructor(boolean)
 
   public boolean isSet() {

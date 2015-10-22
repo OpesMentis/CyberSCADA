@@ -19,48 +19,55 @@ package net.wimpi.modbus.procimg;
 import java.util.Vector;
 
 import application.Automate;
+import net.wimpi.modbus.ModbusCoupler;
 
 /**
  * Class implementing a simple process image
  * to be able to run unit tests or handle
  * simple cases.
  *
- * @author Dieter Wimberger 
+ * @author Dieter Wimberger
  * @version @version@ (@date@)
- * 
- * @forkedby Julien Tomezach  
  */
 public class SimpleProcessImage
     implements ProcessImageImplementation {
-
+Automate automate;
   //instance attributes
   protected Vector m_DigitalInputs;
   protected Vector m_DigitalOutputs;
   protected Vector m_InputRegisters;
   protected Vector m_Registers;
   protected boolean m_Locked = false;
-  private Automate automate;
-  /**
-   * Constructs a new <tt>SimpleProcessImage</tt> instance.
-   */
-  public SimpleProcessImage(Automate automate) {
-	  this.automate = automate;
-    m_DigitalInputs = new Vector();
-    m_DigitalOutputs = new Vector();
-    m_InputRegisters = new Vector();
-    m_Registers = new Vector();
-  }//SimpleProcessImage
-  
+
   /**
    * 
    * 
    * met à jour l'automate
    */
   public void update(){
-	  this.automate.miseAJourEcluse();
+	 
+	 if(automate != null) this.automate.miseAJourEcluse();
 	 
   }
   
+  
+  /**
+   * Constructs a new <tt>SimpleProcessImage</tt> instance.
+   */
+  public SimpleProcessImage(Automate automate) {
+	 this.automate = automate;
+    m_DigitalInputs = new Vector();
+    m_DigitalOutputs = new Vector();
+    m_InputRegisters = new Vector();
+    m_Registers = new Vector();
+  }//SimpleProcessImage
+  public SimpleProcessImage() {
+    m_DigitalInputs = new Vector();
+    m_DigitalOutputs = new Vector();
+    m_InputRegisters = new Vector();
+    m_Registers = new Vector();
+  }//SimpleProcessImage
+
   public boolean isLocked() {
     return m_Locked;
   }//isLocked
@@ -72,7 +79,6 @@ public class SimpleProcessImage
   public void addDigitalIn(DigitalIn di) {
     if (!isLocked()) {
       m_DigitalInputs.addElement(di);
-      
     }
   }//addDigitalIn
 
@@ -87,8 +93,6 @@ public class SimpleProcessImage
     if (!isLocked()) {
       try {
         m_DigitalInputs.setElementAt(di, ref);
-   
-
       } catch (IndexOutOfBoundsException ex) {
         throw new IllegalAddressException();
       }

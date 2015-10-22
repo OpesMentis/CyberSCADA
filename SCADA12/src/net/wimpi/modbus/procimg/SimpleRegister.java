@@ -16,8 +16,6 @@
 
 package net.wimpi.modbus.procimg;
 
-import application.Automate;
-
 /**
  * Class implementing a simple <tt>Register</tt>.
  * <p>
@@ -29,13 +27,12 @@ import application.Automate;
  */
 public class SimpleRegister
     extends SynchronizedAbstractRegister
-   {
+    implements Register {
 
   /**
    * Constructs a new <tt>SimpleRegister</tt> instance.
    * It's state will be invalid.
    */
-
   public SimpleRegister() {
     m_Register = null;
   }//constructor
@@ -59,9 +56,7 @@ public class SimpleRegister
    *        as <tt>int</tt>.
    */
   public SimpleRegister(int value) {
-	
     setValue(value);
   }//constructor(int)
 
-  
 }//SimpleInputRegister

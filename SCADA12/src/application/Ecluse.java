@@ -28,28 +28,28 @@ public class Ecluse {
 	
 	public void setSontTour(boolean b){
 		sonTour =b;
-		automate.update();
+		automate.update("tour");
 	}
 	
 	public void fermer(int numeroBarriere){
 		if(numeroBarriere>=0 && numeroBarriere<nombreBarriere){
 		barrieres.get(numeroBarriere).fermer();
-		automate.update();
+		automate.update("barriere");
 		}
 	}
 	public void ouvrir(int numeroBarriere){
 		if(numeroBarriere>=0 && numeroBarriere<nombreBarriere){
 		barrieres.get(numeroBarriere).ouvrir();
-		automate.update();
+		automate.update("barriere");
 		}
 	}
 	public void avancerBateau(){
 		bat.avancer();
-		automate.update();
+		automate.update("bateau");
 	}
 	public void avancerBateau(int pos){
 		bat.avancer(pos);
-		automate.update();
+		automate.update("bateau");
 	}
 
 	public void afficher(Graphics2D fenetre){

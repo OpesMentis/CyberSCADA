@@ -68,7 +68,6 @@ public class TCPConnectionHandler implements Runnable {
               request.createExceptionResponse(Modbus.ILLEGAL_FUNCTION_EXCEPTION);
         } else {
           response = request.createResponse();
-          
         }
         /*DEBUG*/
         if (Modbus.debug) System.out.println("Request:" + request.getHexMessage());

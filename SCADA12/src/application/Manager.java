@@ -28,10 +28,10 @@ public class Manager {
 		if(numeroBar ==0) ecluse.setSontTour(true);
 		else ecluse.setSontTour(false);
 		annuaire = new HashMap<String, String>();
-		annuaire.put("ecluse0", "192.168.0.25:5555");
-		annuaire.put("ecluse1", "192.168.0.25:5554");
-		annuaire.put("ecluse2", "192.168.0.25:5553");
-		annuaire.put("ecluse3", "192.168.0.25:5552");
+		annuaire.put("ecluse0", "192.168.8.88:5555");
+		annuaire.put("ecluse1", "192.168.8.88:5554");
+		annuaire.put("ecluse2", "192.168.8.88:5553");
+		annuaire.put("ecluse3", "192.168.8.88:5552");
 		
 		
 	}

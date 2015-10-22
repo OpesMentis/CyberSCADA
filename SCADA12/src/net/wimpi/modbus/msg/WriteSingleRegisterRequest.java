@@ -65,7 +65,6 @@ public final class WriteSingleRegisterRequest
    */
   public WriteSingleRegisterRequest(int ref, Register reg) {
     super();
-
     setFunctionCode(Modbus.WRITE_SINGLE_REGISTER);
     m_Reference = ref;
     m_Register = reg;
@@ -81,12 +80,10 @@ public final class WriteSingleRegisterRequest
     ProcessImage procimg = ModbusCoupler.getReference().getProcessImage();
     //2. get register
     try {
-    	
       reg = procimg.getRegister(m_Reference);
       //3. set Register
-      
       reg.setValue(m_Register.toBytes());
-      if(SimpleProcessImage.class.isInstance(procimg)) ((SimpleProcessImage) procimg).update();
+ 
     } catch (IllegalAddressException iaex) {
       return createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);
     }
@@ -100,6 +97,9 @@ public final class WriteSingleRegisterRequest
     }
     response.setUnitID(this.getUnitID());
     response.setFunctionCode(this.getFunctionCode());
+    // on met à jour l'IHM
+
+    ((SimpleProcessImage) ModbusCoupler.getReference().getProcessImage()).update();
     return response;
   }//createResponse
 

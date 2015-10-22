@@ -84,7 +84,6 @@ public final class WriteCoilRequest
       dout = procimg.getDigitalOut(this.getReference());
       //3. set coil
       dout.set(this.getCoil());
-      if(SimpleProcessImage.class.isInstance(procimg)) ((SimpleProcessImage) procimg).update();
       //if(Modbus.debug) System.out.println("set coil ref="+this.getReference()+" state=" + this.getCoil());
     } catch (IllegalAddressException iaex) {
       return createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);
@@ -99,6 +98,7 @@ public final class WriteCoilRequest
     }
     response.setUnitID(this.getUnitID());
     response.setFunctionCode(this.getFunctionCode());
+    ((SimpleProcessImage) ModbusCoupler.getReference().getProcessImage()).update();
     return response;
   }//createResponse
 

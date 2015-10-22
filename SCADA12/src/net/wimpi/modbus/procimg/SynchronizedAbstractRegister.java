@@ -16,8 +16,6 @@
 
 package net.wimpi.modbus.procimg;
 
-import application.Automate;
-
 /**
  * Abstract class with synchronized
  * register operations.
@@ -27,12 +25,7 @@ import application.Automate;
  */
 public abstract class SynchronizedAbstractRegister
     implements Register {
-	
 
-/*Automate automate;
-public void addAutomate(Automate automate){
-	this.automate=automate;
-}*/
   /**
    * The word (<tt>byte[2]</tt>) hodling the state of this
    * register.
@@ -46,10 +39,10 @@ public void addAutomate(Automate automate){
   public final int toUnsignedShort() {
     return ((m_Register[0] & 0xff) << 8 | (m_Register[1] & 0xff));
   }//toUnsignedShort
-  public synchronized void setValue(int v) {
-   setValue((short) v);
- }//setValue
 
+  public final synchronized void setValue(int v) {
+    setValue((short) v);
+  }//setValue
 
   public final short toShort() {
     return (short) ((m_Register[0] << 8) | (m_Register[1] & 0xff));
@@ -61,7 +54,6 @@ public void addAutomate(Automate automate){
     }
     m_Register[0] = (byte) (0xff & (s >> 8));
     m_Register[1] = (byte) (0xff & s);
-
   }//setValue
 
   public final synchronized void setValue(byte[] bytes) {
@@ -71,11 +63,9 @@ public void addAutomate(Automate automate){
       m_Register[0] = bytes[0];
       m_Register[1] = bytes[1];
     }
-
   }//setValue
 
   public byte[] toBytes() {
-	  
     return m_Register;
   }//toBytes
 

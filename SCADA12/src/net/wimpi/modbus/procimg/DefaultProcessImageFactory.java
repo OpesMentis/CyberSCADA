@@ -31,7 +31,7 @@ public class DefaultProcessImageFactory
    * @return a SimpleProcessImage instance.
    */
   public ProcessImageImplementation createProcessImageImplementation() {
-    return new SimpleProcessImage(null);
+    return new SimpleProcessImage();
   }//createProcessImageImplementation
 
   /**

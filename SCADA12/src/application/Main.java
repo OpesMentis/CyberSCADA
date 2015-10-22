@@ -25,7 +25,7 @@ public class Main {
 		while(!fenetre.isClosed()){
 			
 			manager.ouverture();
-			
+		
 			
 			if(System.currentTimeMillis() - temp1> 500){
 				fenetre.repaint();
