@@ -57,7 +57,10 @@ public class ModbusTCPListener
     m_ThreadPool = new ThreadPool(poolsize);
     try {
       m_Address = InetAddress.getLocalHost();
-      System.out.println("adresse serveur"+ m_Address);
+      System.out.println("Vous écouter sur l'adresse ? :" + m_Address);
+      // A remplacer si vous écoutez sur l'adresse localHost 127.0.0.1
+      //String votreIp = "192.168.0.1"; // par exemple
+      //m_Address = InetAdress.getByName(votreIp);
     } catch (UnknownHostException ex) {
 
     }
