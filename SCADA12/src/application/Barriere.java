@@ -1,6 +1,13 @@
 package application;
 import java.awt.Graphics2D;
 
+/**
+ * 
+ * @author falcon
+ *
+ *Représentation de la Barriere
+ */
+
 public class Barriere {
 	private boolean etat; // true = ouverte, false = fermee
 	private boolean type; // true = vertical; false = horyzontal

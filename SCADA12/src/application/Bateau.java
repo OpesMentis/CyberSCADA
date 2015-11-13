@@ -2,6 +2,12 @@ package application;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
+/**
+ * 
+ * @author falcon
+ *
+ *Représentation du Bateau
+ */
 public class Bateau {
 	private int pos;
 	private VisuBateau visu;

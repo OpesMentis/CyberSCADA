@@ -5,6 +5,13 @@ import net.wimpi.modbus.procimg.*;
 import net.wimpi.modbus.Modbus;
 import net.wimpi.modbus.ModbusCoupler;
 
+/** 
+ * 
+ * @author falcon
+ *
+ *Cette classe s'occupe de recevoir des requête Modbus et de renvoyer la réponse associée 
+ */
+
 public class SlaveModbus {
 
 	

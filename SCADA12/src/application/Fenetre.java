@@ -10,6 +10,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+/**
+ * 
+ * @author falcon
+ *
+ *Cette classe gére l'affichage et la fenêtre
+ */
+
 class Fenetre extends JFrame {
 	
 	// à mettre dans une future classe flotte ?

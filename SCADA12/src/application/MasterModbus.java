@@ -27,6 +27,11 @@ import net.wimpi.modbus.procimg.SimpleInputRegister;
 import net.wimpi.modbus.procimg.SimpleRegister;
 import net.wimpi.modbus.util.BitVector;
 
+/**
+ * 
+ * @author falcon
+ *Cette classe s'occupe de faire des requête en tant que client à un automate distant en modbus
+ */
 public class MasterModbus {
 
 	public TCPMasterConnection con = null; //the connection

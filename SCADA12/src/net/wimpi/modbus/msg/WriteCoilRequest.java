@@ -25,7 +25,6 @@ import net.wimpi.modbus.ModbusCoupler;
 import net.wimpi.modbus.procimg.DigitalOut;
 import net.wimpi.modbus.procimg.IllegalAddressException;
 import net.wimpi.modbus.procimg.ProcessImage;
-import net.wimpi.modbus.procimg.SimpleProcessImage;
 
 /**
  * Class implementing a <tt>WriteCoilRequest</tt>.
@@ -98,7 +97,6 @@ public final class WriteCoilRequest
     }
     response.setUnitID(this.getUnitID());
     response.setFunctionCode(this.getFunctionCode());
-    ((SimpleProcessImage) ModbusCoupler.getReference().getProcessImage()).update();
     return response;
   }//createResponse
 

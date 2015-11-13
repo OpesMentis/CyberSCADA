@@ -1,4 +1,12 @@
 package application;
+
+/**
+ * 
+ * @author falcon
+ *S'occupe d'afficher le bateau
+ *
+ */
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -2,6 +2,14 @@ package application;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
+/**
+ * 
+ * @author falcon
+ *
+ *Cette classe est la représentation du systéme écluse en entier: barierre et bateau
+ *Elle met à jour l'automate 
+ */
+
 public class Ecluse {
 	Bateau bat;
 	Vector<Barriere> barrieres;
@@ -66,5 +74,8 @@ public class Ecluse {
 	}
 	public boolean estFermer(int numBar){
 		return barrieres.get(numBar).estFermer();
+	}
+	public Automate getAutomate(){
+		return automate;
 	}
 }

@@ -6,13 +6,22 @@ import net.wimpi.modbus.procimg.SimpleInputRegister;
 import net.wimpi.modbus.procimg.SimpleProcessImage;
 import net.wimpi.modbus.procimg.SimpleRegister;
 
+
+/**
+ * 
+ * @author falcon
+ *
+ *Cette classe est la représentation du systéme écluse mais sous forme de registre comme dans un vrai automate.
+ *
+ */
+
 public class Automate {
 	SimpleProcessImage spi;
 	Ecluse ecluse;
 	
 	public Automate(Ecluse ecluse){
 	 this.ecluse = ecluse;	
-	 spi = new SimpleProcessImage(this);
+	 spi = new SimpleProcessImage();
 	  // 4 Coil pour 4 barriere
 	  // false = elles sont fermées
 	 for(int i =0; i<ecluse.getNombreBarriere(); i++){
@@ -70,7 +79,6 @@ public class Automate {
 		ecluse.avancerBateau(ModbusCoupler.getReference().getProcessImage().getRegister(0).getValue());
 		if(ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).isSet()) ecluse.setSontTour(true);
 		else ecluse.setSontTour(false);
-		System.out.println("Automate: une mise à jour");
 		}
 	}
 	

@@ -21,7 +21,6 @@ import net.wimpi.modbus.ModbusCoupler;
 import net.wimpi.modbus.procimg.IllegalAddressException;
 import net.wimpi.modbus.procimg.ProcessImage;
 import net.wimpi.modbus.procimg.Register;
-import net.wimpi.modbus.procimg.SimpleProcessImage;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -83,7 +82,6 @@ public final class WriteSingleRegisterRequest
       reg = procimg.getRegister(m_Reference);
       //3. set Register
       reg.setValue(m_Register.toBytes());
- 
     } catch (IllegalAddressException iaex) {
       return createExceptionResponse(Modbus.ILLEGAL_ADDRESS_EXCEPTION);
     }
@@ -97,9 +95,6 @@ public final class WriteSingleRegisterRequest
     }
     response.setUnitID(this.getUnitID());
     response.setFunctionCode(this.getFunctionCode());
-    // on met à jour l'IHM
-
-    ((SimpleProcessImage) ModbusCoupler.getReference().getProcessImage()).update();
     return response;
   }//createResponse
 

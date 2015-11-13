@@ -18,9 +18,6 @@ package net.wimpi.modbus.procimg;
 
 import java.util.Vector;
 
-import application.Automate;
-import net.wimpi.modbus.ModbusCoupler;
-
 /**
  * Class implementing a simple process image
  * to be able to run unit tests or handle
@@ -31,7 +28,7 @@ import net.wimpi.modbus.ModbusCoupler;
  */
 public class SimpleProcessImage
     implements ProcessImageImplementation {
-Automate automate;
+
   //instance attributes
   protected Vector m_DigitalInputs;
   protected Vector m_DigitalOutputs;
@@ -40,27 +37,8 @@ Automate automate;
   protected boolean m_Locked = false;
 
   /**
-   * 
-   * 
-   * met à jour l'automate
-   */
-  public void update(){
-	 
-	 if(automate != null) this.automate.miseAJourEcluse();
-	 
-  }
-  
-  
-  /**
    * Constructs a new <tt>SimpleProcessImage</tt> instance.
    */
-  public SimpleProcessImage(Automate automate) {
-	 this.automate = automate;
-    m_DigitalInputs = new Vector();
-    m_DigitalOutputs = new Vector();
-    m_InputRegisters = new Vector();
-    m_Registers = new Vector();
-  }//SimpleProcessImage
   public SimpleProcessImage() {
     m_DigitalInputs = new Vector();
     m_DigitalOutputs = new Vector();
