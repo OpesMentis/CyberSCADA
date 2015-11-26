@@ -16,15 +16,13 @@ import net.wimpi.modbus.procimg.SimpleRegister;
  */
 
 public class Automate {
-	SimpleProcessImage spi;
-	Ecluse ecluse;
-	
-	public Automate(Ecluse ecluse){
-	 this.ecluse = ecluse;	
-	 spi = new SimpleProcessImage();
+	int nombreBarriere;
+	public Automate(int nombreBarriere){
+		this.nombreBarriere = nombreBarriere;
+	SimpleProcessImage spi = new SimpleProcessImage();
 	  // 4 Coil pour 4 barriere
 	  // false = elles sont fermées
-	 for(int i =0; i<ecluse.getNombreBarriere(); i++){
+	 for(int i =0; i<nombreBarriere; i++){
 	  spi.addDigitalOut(new SimpleDigitalOut(false));
 	 }
 	 // creation du registre "sonTour", pour savoir si c'est notre tour ou pas
@@ -42,44 +40,18 @@ public class Automate {
 	  ModbusCoupler.getReference().setUnitID(15);
 	  
 	}
-	
-	public void update(String type){
-		
-		// Ces changements n'entrainent heureusement pas de miseAJourEcluse (risque de récurrence infinie)
-		// chgmt ecluse -> chgt automate -> chgt ecluse -> etc ..
-		
-		//les barriere
-		if(type.equals("barriere")){
-		for(int i =0; i<ecluse.getNombreBarriere(); i++){
-			if(ecluse.estFermer(i)) ModbusCoupler.getReference().getProcessImage().getDigitalOut(i).set(false);
-			else ModbusCoupler.getReference().getProcessImage().getDigitalOut(i).set(true);
-		}
-		}
-		if(type.equals("bateau")){
-		//le bateau
-		ModbusCoupler.getReference().getProcessImage().getRegister(0).setValue(ecluse.getPosBateau());
-		}
-		if(type.equals("tour")){
-		//le sonTour
-		if(ecluse.estSonTour()) ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).set(true);
-		else ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).set(false);
-		}
+	void setSonTour(boolean sonTour){
+		ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).set(sonTour);
 	}
-	
-	public void miseAJourEcluse(){
-		
-		if(ModbusCoupler.getReference().getProcessImage() != null){
-
-		 for(int i =0; i<ecluse.getNombreBarriere(); i++){
-			 
-			 if(ModbusCoupler.getReference().getProcessImage().getDigitalOut(i).isSet()) ecluse.ouvrir(i);
-			 else ecluse.fermer(i);
-		 }
-		    
-		ecluse.avancerBateau(ModbusCoupler.getReference().getProcessImage().getRegister(0).getValue());
-		if(ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).isSet()) ecluse.setSontTour(true);
-		else ecluse.setSontTour(false);
-		}
+	boolean estFermee(int numBarriere){
+		if(numBarriere >=0 &&  numBarriere < nombreBarriere)
+		return !ModbusCoupler.getReference().getProcessImage().getDigitalOut(numBarriere).isSet();
+		else return true;
 	}
-	
+	int getPosBat(){
+		return ModbusCoupler.getReference().getProcessImage().getRegister(0).getValue();
+	}
+	boolean estSonTour(){
+		return ModbusCoupler.getReference().getProcessImage().getDigitalOut(4).isSet();
+	}
 }

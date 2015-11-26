@@ -18,7 +18,7 @@ public class Main {
 	public void askIp(Manager manager, Scanner sc, int numBar){
 		System.out.println("quelle est l'adresse IP de l'ordinateur gérant la barierre "+ numBar+"?");
 		System.out.println("exemple: 198.168.0.25");
-		String adresseIp = sc.nextLine();
+		String adresseIp = sc.next();
 		manager.ajouterAdresse(adresseIp, numBar);
 	}
 	
@@ -37,18 +37,17 @@ public class Main {
 		
 		//Configuration du Manager
 		System.out.println("quel numero de barierre vous controlez ? entre 0 et 3.");
-		numeroBar = sc.nextInt();
+		numeroBar = sc.nextInt(); 
+		if(numeroBar ==0) ecluse.setSontTour(true);
+		else ecluse.setSontTour(false);
 		System.out.println("Voulez-vous tournez le programme en local ? (voulez-vous jouer sur un ordi?) true or false");
 		local = sc.nextBoolean();
 		
-		Manager manager = new Manager(numeroBar, ecluse,local);
+		Manager manager = new Manager(numeroBar,local);
 		
 		if(!local) {
 			System.out.println("Nous allons maintenant remplir le tableau des adresses IP");
-		main.askIp(manager, sc, 0);
-		main.askIp(manager, sc, 1);
-		main.askIp(manager, sc, 2);
-		main.askIp(manager, sc, 3);
+		for(int i =0; i<ecluse.getNombreBarriere(); i++ )main.askIp(manager, sc, i);
 		}
 		
 		//Demarage du serveur 
@@ -60,11 +59,11 @@ public class Main {
 			// on affectue une action sur l'écluse
 			//si ce n'est pas au tour de l'appli, on ne fait rien 
 			// sinon on demande à l'utilisateur si on peut passer à la prochaine étape
-			manager.action();
+			manager.action(ecluse.estSonTour(), ecluse.getPosBateau());
 		
 			
 			if(System.currentTimeMillis() - temp1> 500){
-				manager.update();
+				ecluse.update();
 				fenetre.repaint();
 				temp1 = System.currentTimeMillis() ;
 			}

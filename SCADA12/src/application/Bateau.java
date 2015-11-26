@@ -24,10 +24,9 @@ public class Bateau {
 		pos = (pos + 1) % 4;
 	}
 	public void avancer(int posArg) {
-		if(posArg >= 0 && posArg <=3) {
 		pos = posArg;
 		pos = pos % 4;
-		}
+
 	}
 	
 	public void affiche(Graphics2D g){
@@ -46,12 +45,12 @@ public class Bateau {
 			posReel.add(200);
 			break;
 		case 2:
-			posReel.add(600);
-			posReel.add(200);
+			posReel.add(450);
+			posReel.add(430);
 			break;
 		case 3:
-			posReel.add(400);
-			posReel.add(600);
+			posReel.add(200);
+			posReel.add(430);
 			break;
 		}
 		return posReel;
