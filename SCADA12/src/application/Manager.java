@@ -1,5 +1,5 @@
 package application;
-
+ 
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -28,24 +28,18 @@ public class Manager {
 	MasterModbus m;
 	int etape;
 	Scanner sc;
-	int numeroBar;
-	Ecluse ecluse;
 	HashMap<String, String> annuaire;
-	
-	int nbEcluse;
+	int numeroBar;
 	boolean local;
 	
-	public Manager(int numeroBar, Ecluse ecluse, boolean local) {
-		this.ecluse = ecluse;
+	public Manager(int numeroBar, boolean local) {
+	
 		m = new MasterModbus();
 		
 		etape = 0;
 		sc = new Scanner(System.in);
 		this.numeroBar = numeroBar;
-		if(numeroBar ==0) ecluse.setSontTour(true);
-		else ecluse.setSontTour(false);
 		annuaire = new HashMap<String, String>();
-		nbEcluse = 0;
 		this.local = local;
 		
 		// si on travail en local, on doit écouter sur des ports différents, un pour chaque appli
@@ -59,81 +53,62 @@ public class Manager {
 		}
 		
 	}
-	public void ajouterAdresse(String adresseIP, int nomEcluse){
+	public void ajouterAdresse(String adresseIP, int numBar){
 		
-		String nom = "ecluse" + nbEcluse;		
-		annuaire.put(nom, adresseIP + ":"+ 5555);
+		String nom = "ecluse" + numBar;	
+		int port = 5555 - numBar;
+		annuaire.put(nom, adresseIP + ":"+ port);
 		
 	}
 	public int getPort(){
-		int port = 5555;
-		if(local) port -=numeroBar;
+		int port = 5555 -numeroBar;
 		return port;
 	}
-	public void update(){
-		ecluse.getAutomate().miseAJourEcluse();
-	}
 	
-	public void action() {
+	public void action(boolean estSonTour, int posBateau) {
 		String nomEcluse;
 		// si c'est au tour de l'utilisateur
-		if(ecluse.estSonTour()){
-		//si l'utilisateur valide
+		if(estSonTour){
+		//si l'utilisateur decide de commencer
 		System.out.println("voulez-vous y aller ? true or false");
 		if(sc.nextBoolean()){
 		// ouverture de la barriere
-		try {
 			switch (etape) {
 			case 0:
-				ecluse.ouvrir(numeroBar);
+	 
 				for(int i= 0; i<4; i++){
-					if(i!= numeroBar){
+				
 				nomEcluse = "ecluse" + i;
 				m.WriteCoil(annuaire.get(nomEcluse), Integer.toString(numeroBar), true);
-					}
 				}
-				Thread.sleep(2000);
 				etape++;
 				break;
 			case 1:
 				// avancer bateau
-				
-				ecluse.avancerBateau();
 				for(int i= 0; i<4; i++){
-				if(i!= numeroBar){
 				nomEcluse = "ecluse" + i;
-				m.WriteRegister(annuaire.get(nomEcluse), "0", ecluse.getPosBateau());
-					}
+				m.WriteRegister(annuaire.get(nomEcluse), "0", posBateau+1);
 				}
-				Thread.sleep(2000);
 				etape++;
 				break;
 			case 2:
 				// fermer barriere
-				ecluse.fermer(numeroBar);
 				for(int i= 0; i<4; i++){
-					if(i!= numeroBar){
 				nomEcluse = "ecluse" + i;
 				m.WriteCoil(annuaire.get(nomEcluse), Integer.toString(numeroBar), false);
-					}
 				}
-				Thread.sleep(2000);
 				etape++;
 				break;
 			case 3:
-				ecluse.setSontTour(false);
 				// on envoit au prochain qu'il peut y aller
-				numeroBar = (numeroBar+1)%4;
+				int numeroBar2 = (numeroBar+1)%4;
 				nomEcluse = "ecluse" + numeroBar;
-				m.WriteCoil(annuaire.get(nomEcluse), "4", true);
-				etape++;
+				String nomEcluse2 = "ecluse" + numeroBar2;
+				m.WriteCoil(annuaire.get(nomEcluse2), "4", true);
+				m.WriteCoil(annuaire.get(nomEcluse), "4", false);
+				etape = 0;
 				break;
 			}
-
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		}
 		}
